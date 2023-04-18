@@ -1,4 +1,5 @@
-const cardGenerator = (card, el) => {
+// When using an arrow function, remove the name. However if you had a function, you should use that, e.g. export default function cardGenerator() {}
+export default (card, el) => {
   const cardWrapper = document.createElement('div');
 
   const imgContent = document.createElement('div');
@@ -27,6 +28,7 @@ const cardGenerator = (card, el) => {
   description.innerText = el.description;
   img.setAttribute('src', el.img);
   card.setAttribute('class', 'card');
+  card.classList.add('cards-hover');
 
   cardContent.classList.add('card-content');
   cardWrapper.classList.add('card-wrapper');
@@ -43,7 +45,12 @@ const cardGenerator = (card, el) => {
   defenseCircle.classList.add('defense-background');
   defenseCircle.classList.add('defense-circle');
 
-  if (el.type <= 5) {
+  if (el.number >= 11 && el.number <= 15) {
+    card.classList.add('cards-buff');
+    overlay.classList.add('buff-background');
+    overlay.style.setProperty('--before-bg-color', '#11998e');
+  }
+  if (el.number <= 5) {
     card.classList.add('cards-attack');
     overlay.classList.add('attack-background');
     overlay.style.setProperty('--before-bg-color', '#c31432');
@@ -51,9 +58,9 @@ const cardGenerator = (card, el) => {
     card.classList.add('cards-defense');
     overlay.classList.add('defense-background');
     overlay.style.setProperty('--before-bg-color', '#00d2ff');
-  } else {
-    card.classList.add('cards-buff');
-    overlay.classList.add('buff-background');
-    overlay.style.setProperty('--before-bg-color', '#11998e');
+  } else if (el.number > 15) {
+    card.classList.add('wild-card');
+    overlay.classList.add('wild-card-background');
+    overlay.style.setProperty('--before-bg-color', '#3a6186');
   }
 };
