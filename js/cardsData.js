@@ -167,6 +167,14 @@ export default {
       hp: 6,
       img: './assets/cards/dionysus.JPG',
     },
+    {
+      number: 23,
+      name: 'Dionysus',
+      description: `Being an important part of ancient Greek culture, as the god of wine, Dionysus was a popular Greek god.`,
+      attack: 2,
+      hp: 6,
+      img: './assets/cards/dionysus.JPG',
+    },
   ],
 
   buff: [
