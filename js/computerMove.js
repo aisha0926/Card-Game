@@ -15,6 +15,10 @@ const computerRndArr = [];
 rndArrayGenerator(computerRndArr, 15, 12);
 getCards(computerRndArr, cardsData, computerCardsPool);
 
+export const getComputerDeckObj = () => {
+  return computerDeckObj;
+};
+
 export const computerObj = {
   health: 30,
   rnd: null,
@@ -46,7 +50,10 @@ export let computerObjCopy = { ...computerObj };
 computerObj.generatePoolOfCards();
 
 export const computerMove = () => {
-  computerObj.regenerateCards();
+  while (computerCards.length < 4) {
+    computerObj.regenerateCards();
+  }
+
   btn.innerText = "Computer's Turn";
   btn.disabled = true;
   btn.setAttribute('class', 'disabled');
@@ -91,6 +98,7 @@ export const computerMove = () => {
         // elementRemoverFn(cardEl, p, 2000);
       } else {
         if (computerObj.health < computerObjCopy.health) {
+          console.log(computerObj.health, computerObjCopy.health);
           computerObj.health += computerCards[i].hp;
           p.innerText = `+${computerCards[i].hp} HP`;
           setTimeout(() => {
@@ -103,16 +111,19 @@ export const computerMove = () => {
           computerCards.splice(i, 1);
           computerRndArr.splice(i, 1);
         } else {
-          p.innerText = `Max HP. Card will be discarded`;
-          addElementFn(cardEl, p, 200);
-          // elementRemoverFn(cardEl, p, 2000);
-          computerCards.splice(i, 1);
-          computerRndArr.splice(i, 1);
+          console.log('Continue');
+          console.log(computerCards);
+          // p.innerText = `Max HP. Card will be discarded`;
+          // addElementFn(cardEl, p, 200);
+
+          // computerCards.splice(i, 1);
+          // computerRndArr.splice(i, 1);
+          continue;
         }
       }
       computerDeck.appendChild(card);
       computerDeck.appendChild(cardEl);
-      elementRemoverFn(computerDeck, card, 2000);
+      elementRemoverFn(computerDeck, card, 1000);
     }
   }
   const card = document.createElement('div');
@@ -132,6 +143,7 @@ export const computerMove = () => {
 
   setTimeout(() => {
     player();
+    console.log(computerCards);
     playerObj.counter = 1;
   }, 3000);
 };

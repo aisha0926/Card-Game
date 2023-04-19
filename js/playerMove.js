@@ -20,9 +20,14 @@ const playerDeckObj = [];
 rndArrayGenerator(playerRndArr, 22, 12);
 getCards(playerRndArr, cardsData, playerCardsPool);
 
+export const getPlayerDeckObj = () => {
+  return playerDeckObj;
+};
+
 export let playerObj = {
   health: 30,
   counter: 1,
+  move: null,
 
   generatePoolOfCards() {
     for (let i = 0; i < 4; i++) {
@@ -39,7 +44,7 @@ export let playerObj = {
 
 export let playerObjCopy = { ...playerObj };
 
-function cardsHandler(card, cardEl, el, index, p) {
+function cardsHandler(card, cardEl, el, index, p, test) {
   console.log(playerCards);
   if (playerObj.counter === 1) {
     if (el.number <= 10) {
@@ -86,7 +91,7 @@ function cardsHandler(card, cardEl, el, index, p) {
       playerCards.splice(index, 1);
       playerRndArr.splice(index, 1);
     } else {
-      console.log(this);
+      playerObj.move = { this: test, element: el };
     }
 
     if (el.number <= 10 || el.number > 15) {
@@ -125,8 +130,8 @@ export const player = () => {
     card.setAttribute('id', 'player-' + index);
     cards.appendChild(card);
 
-    card.addEventListener('click', () => {
-      cardsHandler(card, cardEl, el, index, p);
+    card.addEventListener('click', function () {
+      cardsHandler(card, cardEl, el, index, p, this);
     });
   });
 };
